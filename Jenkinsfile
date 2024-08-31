@@ -36,7 +36,7 @@ pipeline {
                     sh 'ls'
                     sh 'cd server'
                     sh 'ls'
-                    sh 'docker build . -nettu-meet-server:latest'
+                    sh 'docker build . -t nettu-meet-server:latest'
                     // sh 'docker pull bitnami/trivy:latest'
                     // sh' cd sever'
                     // sh 'docker build -t nettu-meet-server:latest -f Dockerfile'
