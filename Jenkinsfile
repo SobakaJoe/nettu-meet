@@ -44,9 +44,15 @@ pipeline {
                 }   
             }
         } 
-        
+        stage('QG') {
+            agent {
+                label 'alpine'
+            }
+         steps {
+         }
     }
 }
+}    
 
     
         
