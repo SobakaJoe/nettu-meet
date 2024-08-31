@@ -33,7 +33,8 @@ pipeline {
             steps {
                 script {
                     sh 'docker pull bitnami/trivy:latest'
-                    sh 'docker build ./server -t nettu-meet-server:latest -f Dockerfile'
+                    sh' cd sever'
+                    sh 'docker build -t nettu-meet-server:latest -f Dockerfile'
                     sh 'trivy image --format cyclonedx --output sbom_server.json nettu-meet-server:latest'
                     sh 'docker build ./frontend/docker -t nettu-meet-front:latest -f Dockerfile'
                     sh 'trivy image --format cyclonedx --output sbom_frontend.json nettu-meet-frontend:latest'
