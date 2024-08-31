@@ -32,8 +32,8 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'docker pull bitnami/trivy:latest'
-                    sh 'trivy repo https://github.com/SobakaJoe/nettu-meet -f json -t trivy_result.json'
+                    sh 'docker run aquasec/trivy epo https://github.com/SobakaJoe/nettu-meet -f json -t trivy_result.json'
+                    archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true
                     
                     
                 }   
