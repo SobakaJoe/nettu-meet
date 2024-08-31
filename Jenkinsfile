@@ -49,7 +49,7 @@ pipeline {
                 label 'alpine'
             }
          steps { 
-             sh 'echo 'hello world''
+             echo 'hello world
          }
     }
 }
