@@ -38,16 +38,7 @@ pipeline {
                     sudo apt-get update
                     sudo apt-get install trivy
                     trivy repo https://github.com/SobakaJoe/nettu-meet -f json -o trivy_result.json
-                    curl -X 'POST' -kL 'https://s410-exam.cyber-ed.space:8083/api/v2/import-scan/' \
-                        -H 'accept: application/json' \
-                        -H 'Authorization: Token c5b50032ffd2e0aa02e2ff56ac23f0e350af75b4' \
-                        -H 'Content-Type: multipart/form-data' \
-                        -F 'active=true' \
-                        -F 'verified=true' \
-                        -F 'scan_type=Trivy Scan' \
-                        -F 'product_name=exam_larin' \
-                        -F 'file=@trivy_result.json'
-                        -F 'engagement=50'
+                    curl -X "POST" -kL "https://s410-exam.cyber-ed.space:8083/api/v2/import-scan/" -H "accept: application/json" -H "Authorization: Token c5b50032ffd2e0aa02e2ff56ac23f0e350af75b4" -H "Content-Type: multipart/form-data" -F "active=true" -F "verified=true" -F "deduplication_on_engagement=true" -F "minimum_severity=High" -F "scan_date=2024-08-31" -F "engagement_end_date=2024-08-31" -F "group_by=component_name" -F "tags=" -F "product_name=exam_larin" -F "file=@trivy_result.json;type=application/json" -F "auto_create_context=true" -F "scan_type=Semgrep JSON Report" -F "engagement=1"
                         '''
                     archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true      
                 }   
