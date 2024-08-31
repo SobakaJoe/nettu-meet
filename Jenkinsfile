@@ -22,7 +22,7 @@ pipeline {
                 sh './ZAP_2.15.0/zap.sh -cmd -addonupdate -addoninstall wappalyzer -addoninstall pscanrulesBeta'
                 sh './ZAP_2.15.0/zap.sh -cmd -quickurl https://s410-exam.cyber-ed.space:8084 -quickout $(pwd)/zap_result.json'
                 stash name: 'zap_result', includes: 'zap_result.json'
-                archiveArtifacts artifacts: 'zap_result.jso', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'zap_result.json', allowEmptyArchive: true
                 }
             }
         }
