@@ -32,14 +32,16 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'docker pull bitnami/trivy:latest'
-                    sh' cd sever'
-                    sh 'docker build -t nettu-meet-server:latest -f Dockerfile'
-                    sh 'trivy image --format cyclonedx --output sbom_server.json nettu-meet-server:latest'
-                    sh 'docker build ./frontend/docker -t nettu-meet-front:latest -f Dockerfile'
-                    sh 'trivy image --format cyclonedx --output sbom_frontend.json nettu-meet-frontend:latest'
-                    archiveArtifacts artifacts: 'sbom_server.json', allowEmptyArchive: true
-                    archiveArtifacts artifacts: 'sbom_frontend.json', allowEmptyArchive: true
+                    sh 'pwd'
+                    sh 'ls'
+                    // sh 'docker pull bitnami/trivy:latest'
+                    // sh' cd sever'
+                    // sh 'docker build -t nettu-meet-server:latest -f Dockerfile'
+                    // sh 'trivy image --format cyclonedx --output sbom_server.json nettu-meet-server:latest'
+                    // sh 'docker build ./frontend/docker -t nettu-meet-front:latest -f Dockerfile'
+                    // sh 'trivy image --format cyclonedx --output sbom_frontend.json nettu-meet-frontend:latest'
+                    // archiveArtifacts artifacts: 'sbom_server.json', allowEmptyArchive: true
+                    // archiveArtifacts artifacts: 'sbom_frontend.json', allowEmptyArchive: true
                 }   
             }
         } 
