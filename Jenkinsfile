@@ -1,7 +1,7 @@
 pipeline {
     agent { 
         label 'alpine'
-    }
+        }
     stages {
         stage('semgrep') {
             steps {
@@ -12,10 +12,9 @@ pipeline {
                     sh '/root/.local/bin/semgrep scan --config auto > semgrep.txt'
                     //sh '/root/.local/bin/semgrep ci'
                     archiveArtifacts artifacts: 'semgrep.txt', allowEmptyArchive: true
+                    }
                 }
-            }
-        }
-    }
+            }  
         stage('owasp_zap') {
             steps {
                 script {
@@ -25,7 +24,9 @@ pipeline {
                 sh './ZAP_2.15.0/zap.sh -cmd -quickurl https://s410-exam.cyber-ed.space:8084 -quickout $(pwd)/zapsh-report.json'
                 stash name: 'zapsh-report', includes: 'zapsh-report.json'
                 archiveArtifacts artifacts: 'zapsh-report.json', allowEmptyArchive: true
+                }
+            }
         }
     }
-}
-}
+} 
+    
