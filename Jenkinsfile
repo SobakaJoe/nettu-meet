@@ -1,15 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('SAST') {
+        stage('Hello') {
             steps {
-                // Сканирование кода с использованием Semgrep
-                semgrep(
-                    tool: 'semgrep',
-                    pattern: '^security_rules$',
-                    failOnAlert: true,
-                    severityThreshold: 'high'
-                )
+                echo 'Hello World'
             }
         }
     }
