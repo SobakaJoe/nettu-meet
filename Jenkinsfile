@@ -46,7 +46,8 @@ pipeline {
                         -F 'verified=true' \
                         -F 'scan_type=Trivy Scan' \
                         -F 'product_name=exam_larin' \
-                        -F 'file=@trivy_result.json';
+                        -F 'file=@trivy_result.json'
+                        -F 'engagement=50'
                         '''
                     archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true      
                 }   
