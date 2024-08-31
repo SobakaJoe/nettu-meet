@@ -48,7 +48,8 @@ pipeline {
             agent {
                 label 'alpine'
             }
-         steps {
+         steps { 
+             sh 'echo 'hello world''
          }
     }
 }
