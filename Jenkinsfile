@@ -32,7 +32,8 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'docker run aquasec/trivy repo https://github.com/SobakaJoe/nettu-meet -f json -t trivy_result.json'
+                    sh 'docker pull aquasec/trivy'
+                    sh 'docker run aquasec/trivy repo https://github.com/SobakaJoe/nettu-meet --format json --output trivy_report.json'
                     archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true
                     
                     
