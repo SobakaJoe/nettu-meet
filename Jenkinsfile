@@ -32,23 +32,13 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -'
-                    sh 'echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list'
-                    sh 'sudo apt-get update'
-                    sh 'sudo apt-get install trivy'
-                    sh 'trivy repo https://github.com/SobakaJoe/nettu-meet -f json -o trivy_result.json'
-                    archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true      
-                }   
-            }
-        } 
-        stage ('defect_dojo') {
-            agent {
-                label 'alpine'
-            }
-            steps {
-                script {
                     sh '''
-                        curl -X 'POST' -kL 'https://s410-exam.cyber-ed.space:8083/api/v2/import-scan/' \
+                    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+                    echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+                    sudo apt-get update
+                    sudo apt-get install trivy
+                    trivy repo https://github.com/SobakaJoe/nettu-meet -f json -o trivy_result.json
+                    curl -X 'POST' -kL 'https://s410-exam.cyber-ed.space:8083/api/v2/import-scan/' \
                         -H 'accept: application/json' \
                         -H 'Authorization: Token c5b50032ffd2e0aa02e2ff56ac23f0e350af75b4' \
                         -H 'Content-Type: multipart/form-data' \
@@ -57,11 +47,15 @@ pipeline {
                         -F 'scan_type=Trivy Scan' \
                         -F 'product_name=exam_larin' \
                         -F 'file=@trivy_result.json';
-                    '''
+                        '''
+                    archiveArtifacts artifacts: 'trivy_result.json', allowEmptyArchive: true      
+                }   
+            }
+        } 
+        
     }
 }
-}
-    }
-}
+
+    
         
 
